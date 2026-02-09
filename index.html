@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For You, My Love 💖</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Pacifico&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-light: #ffe4ec;
+            --pink-soft: #f7c6d9;
+            --pink-deep: #e89bb5;
+            --text-dark: #5a2a3c;
+        }
+
+        /* Proposal Overlay */
+        #proposalOverlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #ffe6ee, #fff0f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        .proposal-card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 2.5rem 2rem;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            max-width: 320px;
+            width: 90%;
+        }
+
+        .proposal-card h1 {
+            font-family: 'Pacifico', cursive;
+            color: #e89bb5;
+            margin-bottom: 0.8rem;
+        }
+
+        .proposal-card p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            position: relative;
+            height: 60px;
+        }
+
+        .buttons button {
+            position: absolute;
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #yesBtn {
+            left: 0;
+            background: #e89bb5;
+            color: white;
+        }
+
+        #noBtn {
+            right: 0;
+            background: #f3d1de;
+            color: #5a2a3c;
+        }
+
+        /* Hidden love page */
+        .hidden {
+            display: none;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #ffe6ee);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            background: rgba(232, 155, 181, 0.5);
+            transform: rotate(45deg);
+            animation: floatUp 12s linear infinite;
+            z-index: 0;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 14px;
+            height: 14px;
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -7px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -7px;
+            top: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            color: var(--pink-deep);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Letter Card */
+        .letter {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 2s ease forwards;
+            backdrop-filter: blur(6px);
+        }
+
+        .letter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #7a324c;
+        }
+
+        .letter p {
+            line-height: 1.9;
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Music Toggle */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+            transition: transform 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .letter {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Music Bar */
+        .music-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+            z-index: 5;
+        }
+
+        #songTitle {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #5a2a3c;
+        }
+
+        #nextBtn {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        #nextBtn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+    <!-- Proposal Overlay -->
+    <div id="proposalOverlay">
+        <div class="proposal-card">
+            <h1>Hey Manvi 💕</h1>
+            <p>Will you be my girlfriend?</p>
+
+            <div class="buttons">
+                <button id="yesBtn">Yes 💖</button>
+                <button id="noBtn">No 🙈</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Music Button -->
+    <div class="music-toggle" id="musicBtn">🎵</div>
+    <!-- Music Bar -->
+    <div class="music-bar" id="musicBar">
+        <span id="songTitle">Hey Manvi! Let's enjoy some music. To hear some music please click 🎵 on top right corner. To stop it, press 🔊. Have a nice time my love!</span>
+        <button id="nextBtn">⏭️</button>
+    </div>
+
+
+    <!-- Audio (upload your own file here) -->
+    <audio id="bgMusic" loop>
+        <source src="assets/Ma-Ahi-Ve Official Audio.m4a" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Hearts -->
+    <script>
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 10 + 's';
+            heart.style.opacity = Math.random() * 0.6 + 0.2;
+            heart.style.transform = `scale(${Math.random() * 0.8 + 0.4}) rotate(45deg)`;
+            document.body.appendChild(heart);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const overlay = document.getElementById('proposalOverlay');
+            const lovePage = document.getElementById('lovePage');
+
+            noBtn.addEventListener('click', () => {
+                const x = Math.random() * 200 - 100;
+                const y = Math.random() * 100 - 50;
+                noBtn.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            yesBtn.addEventListener('click', () => {
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    lovePage.classList.remove('hidden');
+                    lovePage.scrollIntoView({ behavior: 'smooth' });
+                }, 800);
+            });
+        });
+    </script>
+    <div id="lovePage" class="hidden">
+        <div class="container">
+            <section class="hero">
+                <h1>For You, My Love 💖</h1>
+                <p>A little piece of my heart, written just for you</p>
+            </section>
+
+            <section class="letter">
+                <h2>Dear Manvi Gupta,</h2>
+
+                <p>
+                    Hello Manvi!!
+                    This is our 2nd Valentine's Day babyyyyyyy. At this point, I'm literally out of words to praise you babe.
+                    Holding you in my arms is all I need, hugging you tight is all I want, smiling at looking you smile is all I desire, playing with our noses together is all I plan, watching your eyes sinking behind your eye lashes when I lean to kiss you is all I want to see, the scent of your hairs is all I want to smell. The sweet voice of yours is all I want to hear. The weight of your body is all I want to hold and our kids playing together is all I want to imagine bachha!!!
+                    I love ou so much....
+                </p>
+
+                <p>
+                    You are my quiet comfort, my laughter on ordinary days, my calm in the
+                    middle of storms. In your presence, I don't have to be anything more
+                    than myself, and that alone feels like a gift I never knew I needed.
+                </p>
+
+                <p>
+                    I don't promise perfection. I promise choice. Again and again.
+                    Choosing you in the small moments, in the hard ones, in the silence,
+                    and in the joy. Choosing us - always.
+                </p>
+
+                <p>
+                    If love is a place, then with you, it feels like home.
+                    And I would walk a thousand lifetimes just to find my way back to you
+                    every single time.
+                </p>
+
+                <p>
+                    Yours, in all the ways that matter babe🤍
+                </p>
+                <p>
+                    Again, I love you so much🤍
+                </p>
+                <p>
+                    Happy Valentine's Day Manvi!
+                </p>
+            </section>
+
+            <footer>
+                Made with love, just for you ❤️
+            </footer>
+        </div>
+    </div>
+
+    <!-- Music Toggle Script -->
+    <script>
+        const music = document.getElementById('bgMusic');
+        const btn = document.getElementById('musicBtn');
+        const songTitleEl = document.getElementById('songTitle');
+        const nextBtn = document.getElementById('nextBtn');
+
+        const playlist = [
+            { title: 'Ma-Ahi-Ve', src: 'assets/Ma-Ahi-Ve Official Audio.m4a' },
+            { title: 'Hokar Juda Tere Se', src: 'assets/Hokar Juda Tere se audio.mp3' },
+        ];
+
+        let currentSongIndex = 0;
+        let isPlaying = false;
+
+        function playSong(index) {
+            music.src = playlist[index].src;
+            songTitleEl.textContent = playlist[index].title;
+            music.play().catch(() => { });
+        }
+
+        btn.addEventListener('click', () => {
+            if (!isPlaying) {
+                playSong(currentSongIndex);
+                btn.textContent = '🔊';
+                isPlaying = true;
+            } else {
+                music.pause();
+                btn.textContent = '🎵';
+                isPlaying = false;
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            playSong(currentSongIndex);
+            btn.textContent = '🔊';
+            isPlaying = true;
+        });
+
+        music.addEventListener('ended', () => {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            playSong(currentSongIndex);
+        });
+    </script>
+
+</body>
+
+</html>
