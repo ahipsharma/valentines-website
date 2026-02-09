@@ -323,7 +323,7 @@
         .photo-caption {
             margin-top: 1rem;
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.9;
             font-style: italic;
         }
 
@@ -482,7 +482,6 @@
                     for (let i = 0; i < 6; i++) {
                         const heart = document.createElement('div');
 
-                        // 💖 RARE NAME SPARKLE (1 in 20 taps)
                         if (Math.random() < 0.05) {
                             heart.textContent = 'Manvi ✨';
                         } else {
@@ -656,7 +655,7 @@
         });
         const hour = new Date().getHours();
         console.log(hour)
-        if (hour >= 15 || hour <= 5) {
+        if (hour >= 21 || hour <= 5) {
             document.body.style.background = 'linear-gradient(135deg, #2b1a22, #3a1f2d)';
             document.getElementById('idleMessage').textContent =
                 "It’s late. I hope you’re okay 🌙";
