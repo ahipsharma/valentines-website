@@ -293,6 +293,113 @@
         #nextBtn:hover {
             transform: scale(1.1);
         }
+
+        /* Photo Section */
+        .photo-section {
+            text-align: center;
+            margin: 3rem 0 2rem;
+        }
+
+        .photo-frame {
+            width: 220px;
+            height: 220px;
+            margin: auto;
+            border-radius: 50%;
+            padding: 10px;
+            background: radial-gradient(circle at top, #ffd6e5, #e89bb5);
+            box-shadow: 0 20px 50px rgba(232, 155, 181, 0.5);
+            animation: floatPhoto 6s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+
+        .photo-caption {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* Floating animation */
+        @keyframes floatPhoto {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Pulse on tap */
+        .photo-frame.pulse {
+            animation: pulse 0.6s ease;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.06);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        /* Tap Heart */
+        .tap-heart {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            animation: tapFloat 1.2s ease forwards;
+            z-index: 9999;
+        }
+
+        @keyframes tapFloat {
+            0% {
+                transform: translate(-50%, -50%) scale(0.6);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -120%) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .idle-message {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            opacity: 0;
+            color : white;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        .idle-message.show {
+            opacity: 0.6;
+        }
     </style>
 </head>
 
@@ -329,6 +436,7 @@
 
     <!-- Floating Hearts -->
     <script>
+        /* ---------- Floating background hearts ---------- */
         for (let i = 0; i < 25; i++) {
             const heart = document.createElement('div');
             heart.className = 'heart';
@@ -344,16 +452,20 @@
             const yesBtn = document.getElementById('yesBtn');
             const overlay = document.getElementById('proposalOverlay');
             const lovePage = document.getElementById('lovePage');
+            const photoFrame = document.getElementById('photoFrame');
 
+            /* ---------- Runaway NO button ---------- */
             noBtn.addEventListener('click', () => {
                 const x = Math.random() * 200 - 100;
                 const y = Math.random() * 100 - 50;
                 noBtn.style.transform = `translate(${x}px, ${y}px)`;
             });
 
+            /* ---------- YES button ---------- */
             yesBtn.addEventListener('click', () => {
                 overlay.style.opacity = '0';
                 overlay.style.pointerEvents = 'none';
+                localStorage.setItem('sheSaidYes', 'true');
 
                 setTimeout(() => {
                     overlay.style.display = 'none';
@@ -361,22 +473,66 @@
                     lovePage.scrollIntoView({ behavior: 'smooth' });
                 }, 800);
             });
+
+            /* ---------- Photo tap interaction ---------- */
+            if (photoFrame) {
+                photoFrame.addEventListener('click', (e) => {
+                    photoFrame.classList.add('pulse');
+
+                    for (let i = 0; i < 6; i++) {
+                        const heart = document.createElement('div');
+
+                        // 💖 RARE NAME SPARKLE (1 in 20 taps)
+                        if (Math.random() < 0.05) {
+                            heart.textContent = 'Manvi ✨';
+                        } else {
+                            heart.textContent = '💖';
+                        }
+
+                        heart.className = 'tap-heart';
+                        heart.style.left = e.clientX + 'px';
+                        heart.style.top = e.clientY + 'px';
+
+                        document.body.appendChild(heart);
+                        setTimeout(() => heart.remove(), 1200);
+                    }
+
+                    setTimeout(() => {
+                        photoFrame.classList.remove('pulse');
+                    }, 600);
+                });
+            }
         });
     </script>
+
     <div id="lovePage" class="hidden">
         <div class="container">
             <section class="hero">
                 <h1>For You, My Love 💖</h1>
+                <h2>Made with love, just for you Manvi.❤️</h2>
                 <p>A little piece of my heart, written just for you</p>
             </section>
+            <!-- Photo Section -->
+            <div class="photo-section">
+                <div class="photo-frame" id="photoFrame">
+                    <img src="assets/images/My love.jpeg" alt="Manvi 💕">
+                </div>
+                <p class="photo-caption">You, as the world sees poetry.</p>
+            </div>
+
 
             <section class="letter">
                 <h2>Dear Manvi Gupta,</h2>
 
                 <p>
                     Hello Manvi!!
-                    This is our 2nd Valentine's Day babyyyyyyy. At this point, I'm literally out of words to praise you babe.
-                    Holding you in my arms is all I need, hugging you tight is all I want, smiling at looking you smile is all I desire, playing with our noses together is all I plan, watching your eyes sinking behind your eye lashes when I lean to kiss you is all I want to see, the scent of your hairs is all I want to smell. The sweet voice of yours is all I want to hear. The weight of your body is all I want to hold and our kids playing together is all I want to imagine bachha!!!
+                    This is our 2nd Valentine's Day babyyyyyyy. At this point, I'm literally out of words to praise you
+                    babe.
+                    Holding you in my arms is all I need, hugging you tight is all I want, smiling at looking you smile
+                    is all I desire, playing with our noses together is all I plan, watching your eyes sinking behind
+                    your eye lashes when I lean to kiss you is all I want to see, the scent of your hairs is all I want
+                    to smell. The sweet voice of yours is all I want to hear. The weight of your body is all I want to
+                    hold and our kids playing together is all I want to imagine bachha!!!
                     I love ou so much....
                 </p>
 
@@ -407,13 +563,38 @@
                 <p>
                     Happy Valentine's Day Manvi!
                 </p>
+                <div id="idleMessage" class="idle-message">I like when you stay 🤍</div>
             </section>
-
             <footer>
-                Made with love, just for you ❤️
+
             </footer>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let idleTimer;
+            const idleMessage = document.getElementById('idleMessage');
+
+            if (!idleMessage) return;
+
+            function resetIdleTimer() {
+                idleMessage.classList.remove('show');
+                clearTimeout(idleTimer);
+
+                idleTimer = setTimeout(() => {
+                    idleMessage.classList.add('show');
+                }, 20000); // 20 seconds
+            }
+
+            // Only reset on scroll / touch — NOT every click
+            ['scroll', 'touchstart'].forEach(evt =>
+                document.addEventListener(evt, resetIdleTimer)
+            );
+
+            resetIdleTimer();
+        });
+    </script>
+
 
     <!-- Music Toggle Script -->
     <script>
@@ -459,6 +640,27 @@
             currentSongIndex = (currentSongIndex + 1) % playlist.length;
             playSong(currentSongIndex);
         });
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('div');
+            heart.className = 'tap-heart';
+            heart.textContent = ['💖', '💗', '💕', '💞'][Math.floor(Math.random() * 4)];
+
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        });
+        const hour = new Date().getHours();
+        console.log(hour)
+        if (hour >= 15 || hour <= 5) {
+            document.body.style.background = 'linear-gradient(135deg, #2b1a22, #3a1f2d)';
+            document.getElementById('idleMessage').textContent =
+                "It’s late. I hope you’re okay 🌙";
+        }
     </script>
 
 </body>
