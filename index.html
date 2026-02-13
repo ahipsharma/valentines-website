@@ -387,13 +387,13 @@
 
         .idle-message {
             position: fixed;
-            bottom: 80px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 1rem;
             opacity: 0;
-            color : white;
-            transition: opacity 1s ease;
+            color : black;
+            transition: opacity 1.5s ease;
             pointer-events: none;
         }
 
@@ -568,7 +568,7 @@
                 <p>
                     Happy Valentine's Day Manvi!
                 </p>
-                <div id="idleMessage" class="idle-message">I like when you stay 🤍</div>
+                <p id="idleMessage" class="idle-message">I like when you stay 🤍</p>
             </section>
             <footer>
 
@@ -588,7 +588,7 @@
 
                 idleTimer = setTimeout(() => {
                     idleMessage.classList.add('show');
-                }, 20000); // 20 seconds
+                }, 10000); // 20 seconds
             }
 
             // Only reset on scroll / touch — NOT every click
