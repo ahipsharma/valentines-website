@@ -170,15 +170,20 @@
             opacity: 0.8;
         }
 
-        /* Letter Card */
+        /* Letter Card - Paper Style */
         .letter {
-            background: rgba(255, 255, 255, 0.7);
+            background: repeating-linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.95),
+                    rgba(255, 255, 255, 0.95) 28px,
+                    #f3dce6 29px);
             border-radius: 24px;
             padding: 2.5rem;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            animation: fadeInUp 2s ease forwards;
             backdrop-filter: blur(6px);
+            line-height: 29px;
+            overflow: hidden;
         }
+
 
         .letter h2 {
             font-family: 'Playfair Display', serif;
@@ -188,10 +193,13 @@
         }
 
         .letter p {
-            line-height: 1.9;
+            line-height: 29px;
             font-size: 1.05rem;
             margin-bottom: 1.2rem;
+            text-align: justify;
+            text-justify: inter-word;
         }
+
 
         /* Music Toggle */
         .music-toggle {
@@ -392,7 +400,7 @@
             transform: translateX(-50%);
             font-size: 1rem;
             opacity: 0;
-            color : black;
+            color: black;
             transition: opacity 1.5s ease;
             pointer-events: none;
         }
@@ -460,10 +468,10 @@
                 const x = Math.random() * 200 - 100;
                 const y = Math.random() * 100 - 50;
                 noBtn.style.transform = `translate(${x}px, ${y}px)`;
-                if(counter == 2) noBtn.textContent = "Please 🥺"
-                if(counter == 4) noBtn.textContent = "Are you sure?"
-                else if(counter == 5) noBtn.textContent = "1000% sure you don't want to be?"
-                else if(counter > 5) noBtn.textContent = "I love you Bachhaa ❤️"
+                if (counter == 2) noBtn.textContent = "Please 🥺"
+                if (counter == 4) noBtn.textContent = "Are you sure?"
+                else if (counter == 5) noBtn.textContent = "1000% sure you don't want to be?"
+                else if (counter > 5) noBtn.textContent = "I love you Bachhaa ❤️"
                 counter++
             });
 
@@ -526,46 +534,35 @@
             </div>
 
 
-            <section class="letter">
+            <section class="letter" id="typedLetter">
                 <h2>Dear Manvi Gupta,</h2>
 
                 <p>
-                    Hello Manvi!!
+                    Hello Manvi!!<br />
                     This is our 2nd Valentine's Day babyyyyyyy. At this point, I'm literally out of words to praise you
-                    babe.
-                    Holding you in my arms is all I need, hugging you tight is all I want, smiling at looking you smile
-                    is all I desire, playing with our noses together is all I plan, watching your eyes sinking behind
-                    your eye lashes when I lean to kiss you is all I want to see, the scent of your hairs is all I want
+                    babe.<br />
+                    Holding you in my arms is all I need, hugging you tight is all I want, watching you smile is all I desire, playing with our noses together is all I plan, watching your eyes sinking behind
+                    your eyelashes when I lean to kiss you is all I want to see, the scent of your hair is all I want
                     to smell. The sweet voice of yours is all I want to hear. The weight of your body is all I want to
-                    hold and our kids playing together is all I want to imagine bachha!!!
-                    I love ou so much....
-                </p>
+                    bear and our kids playing together is all I want to imagine bachha!!!
+                    I love you so much....<br />
 
-                <p>
                     You are my quiet comfort, my laughter on ordinary days, my calm in the
                     middle of storms. In your presence, I don't have to be anything more
-                    than myself, and that alone feels like a gift I never knew I needed.
-                </p>
+                    than myself, and that alone feels like a gift I never knew I needed.<br />
 
-                <p>
                     I don't promise perfection. I promise choice. Again and again.
                     Choosing you in the small moments, in the hard ones, in the silence,
-                    and in the joy. Choosing us - always.
-                </p>
+                    and in the joy. Choosing us - always.<br />
 
-                <p>
                     If love is a place, then with you, it feels like home.
                     And I would walk a thousand lifetimes just to find my way back to you
-                    every single time.
-                </p>
+                    every single time.<br />
 
-                <p>
-                    Yours, in all the ways that matter babe🤍
-                </p>
-                <p>
+                    Yours, in all the ways that matter babe🤍<br />
+
                     Again, I love you so much🤍
-                </p>
-                <p>
+
                     Happy Valentine's Day Manvi!
                 </p>
                 <p id="idleMessage" class="idle-message">I like when you stay 🤍</p>
@@ -588,7 +585,7 @@
 
                 idleTimer = setTimeout(() => {
                     idleMessage.classList.add('show');
-                }, 10000); // 20 seconds
+                }, 30000); // 20 seconds
             }
 
             // Only reset on scroll / touch — NOT every click
@@ -598,11 +595,8 @@
 
             resetIdleTimer();
         });
-    </script>
 
-
-    <!-- Music Toggle Script -->
-    <script>
+        <!-- Music Toggle Script -->
         const music = document.getElementById('bgMusic');
         const btn = document.getElementById('musicBtn');
         const songTitleEl = document.getElementById('songTitle');
@@ -666,7 +660,51 @@
             document.getElementById('idleMessage').textContent =
                 "It’s late. I hope you’re okay 🌙";
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const letter = document.getElementById('typedLetter');
+            if (!letter) return;
+
+            const elements = Array.from(letter.querySelectorAll('h2, p'));
+
+            let currentIndex = 0;
+
+            function typeElement(el, callback) {
+                const text = el.textContent.trim();
+                el.textContent = '';
+                let i = 0;
+
+                function type() {
+                    if (i < text.length) {
+                        el.textContent += text.charAt(i);
+                        i++;
+                        if (text.charAt(i) == ".") setTimeout(type, 1000);
+                        else if (text.charAt(i) == ",") setTimeout(type, 100);
+                        else setTimeout(type, 60);
+                    } else {
+                        setTimeout(callback, 500); // small pause before next paragraph
+                    }
+                }
+
+                type();
+            }
+
+            function typeNext() {
+                if (currentIndex < elements.length) {
+                    typeElement(elements[currentIndex], () => {
+                        currentIndex++;
+                        typeNext();
+                    });
+                }
+            }
+
+            typeNext();
+
+        });
     </script>
+
+
 
 </body>
 
