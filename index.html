@@ -411,7 +411,7 @@
     <div id="proposalOverlay">
         <div class="proposal-card">
             <h1>Hey Manvi 💕</h1>
-            <p>Will you be my girlfriend?</p>
+            <p>Will you be my Valentine?</p>
 
             <div class="buttons">
                 <button id="yesBtn">Yes 💖</button>
@@ -446,6 +446,7 @@
             heart.style.transform = `scale(${Math.random() * 0.8 + 0.4}) rotate(45deg)`;
             document.body.appendChild(heart);
         }
+        let counter = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
             const noBtn = document.getElementById('noBtn');
@@ -459,6 +460,11 @@
                 const x = Math.random() * 200 - 100;
                 const y = Math.random() * 100 - 50;
                 noBtn.style.transform = `translate(${x}px, ${y}px)`;
+                if(counter == 2) noBtn.textContent = "Please 🥺"
+                if(counter == 4) noBtn.textContent = "Are you sure?"
+                else if(counter == 5) noBtn.textContent = "1000% sure you don't want to be?"
+                else if(counter > 5) noBtn.textContent = "I love you Bachhaa ❤️"
+                counter++
             });
 
             /* ---------- YES button ---------- */
@@ -507,7 +513,7 @@
     <div id="lovePage" class="hidden">
         <div class="container">
             <section class="hero">
-                <h1>For You, My Love 💖</h1>
+                <h1>I love You so much my Blueberry Pie 💖</h1>
                 <h2>Made with love, just for you Manvi.❤️</h2>
                 <p>A little piece of my heart, written just for you</p>
             </section>
