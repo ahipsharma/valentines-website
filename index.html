@@ -419,7 +419,7 @@
     <div id="proposalOverlay">
         <div class="proposal-card">
             <h1>Hey Manvi 💕</h1>
-            <p>Will you be my Valentine?</p>
+            <p>Do you love me?</p>
 
             <div class="buttons">
                 <button id="yesBtn">Yes 💖</button>
@@ -429,12 +429,12 @@
     </div>
 
     <!-- Music Button -->
-    <div class="music-toggle" id="musicBtn">🎵</div>
+    <!-- <div class="music-toggle" id="musicBtn">🎵</div> -->
     <!-- Music Bar -->
-    <div class="music-bar" id="musicBar">
+    <!-- <div class="music-bar" id="musicBar">
         <span id="songTitle">Let's enjoy some music!</span>
         <button id="nextBtn">⏭️</button>
-    </div>
+    </div> -->
 
 
     <!-- Audio (upload your own file here) -->
@@ -458,7 +458,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
+            let yesBtn = document.getElementById('yesBtn');
             const overlay = document.getElementById('proposalOverlay');
             const lovePage = document.getElementById('lovePage');
             const photoFrame = document.getElementById('photoFrame');
@@ -470,8 +470,15 @@
                 noBtn.style.transform = `translate(${x}px, ${y}px)`;
                 if (counter == 2) noBtn.textContent = "Please 🥺"
                 if (counter == 4) noBtn.textContent = "Are you sure?"
-                else if (counter == 5) noBtn.textContent = "1000% sure you don't want to be?"
-                else if (counter > 5) noBtn.textContent = "I love you Bachhaa ❤️"
+                else if (counter == 5) noBtn.textContent = "Maan Jaaao Yaar!!!!🥺🥺🥺🥺🥺"
+                else if (counter == 6) noBtn.textContent = "1000% sure you don't want to be?"
+                else if (counter == 8) noBtn.textContent = "I love you Bachhaa ❤️"
+                else if (counter == 10) noBtn.textContent = "Acha ab maan bhiii jaao"
+                else if (counter > 10) {
+                    // Increase yes button button size horizontally and vertically on every click after 10 and shrink the no btn
+                    yesBtn.style.transform = `scale(${1 + counter * 0.1})`;
+                    noBtn.style.transform = `scale(${(1 - counter * 0.05)})`;
+                }
                 counter++
             });
 
@@ -534,10 +541,42 @@
             </div>
 
 
-            <section class="letter" id="typedLetter">
+            
+<!-- Spotify Playlist with Fade-in -->
+<style>
+.spotify-wrapper {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeSpotify 1.5s ease forwards;
+    animation-delay: 0.8s;
+}
+
+@keyframes fadeSpotify {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<div class="spotify-wrapper">
+    <iframe 
+        style="border-radius:20px" 
+        src="https://open.spotify.com/embed/playlist/1KScs09LQnlYWU4XEbZ6Ko"
+        width="100%" 
+        height="380" 
+        frameBorder="0" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+</div>
+
+<section class="letter" id="typedLetter">
                 <h2>Dear Manvi Gupta,</h2>
 
-                <p>
+                <!-- <p>
                     Hello Manvi!!<br />
                     This is our 2nd Valentine's Day babyyyyyyy. At this point, I'm literally out of words to praise you
                     babe.<br />
@@ -564,6 +603,12 @@
                     Again, I love you so much🤍
 
                     Happy Valentine's Day Manvi!
+                </p> -->
+                <p id="actualletter">
+                    Hi Manvi!!<br />
+                    I love you so much my love! You are the most precious person in my life and I am so grateful to have you by my side. You bring so much joy and happiness into my life and I can't imagine a day without you. I promise to always love and cherish you, to support you through thick and thin, and to be there for you no matter what. You are my everything and I will always be here for you.<br />
+                    I spend countless hours trying to put into words how much you mean to me, but I always come back to the same truth: I love you more than words can express. You are my heart, my soul, and my everything! You are the most beautiful, kind, and amazing person I have ever met, and I am so lucky to call you mine. I promise to always be there for you, to support you, and to love you with all of my heart. Loving you is the easiest thing I have ever done, and I will continue to love you more and more each day.
+                    Babe I just need you with me and nothing else in this world matters. I love you so much, Manvi!
                 </p>
                 <p id="idleMessage" class="idle-message">I like when you stay 🤍</p>
             </section>
@@ -661,47 +706,16 @@
                 "It’s late. I hope you’re okay 🌙";
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // document.addEventListener('DOMContentLoaded', () => {
 
-            const letter = document.getElementById('typedLetter');
-            if (!letter) return;
+            
+        //             });
+        //         }
+        //     }
 
-            const elements = Array.from(letter.querySelectorAll('h2, p'));
+        //     typeNext();
 
-            let currentIndex = 0;
-
-            function typeElement(el, callback) {
-                const text = el.textContent.trim();
-                el.textContent = '';
-                let i = 0;
-
-                function type() {
-                    if (i < text.length) {
-                        el.textContent += text.charAt(i);
-                        i++;
-                        if (text.charAt(i) == ".") setTimeout(type, 1000);
-                        else if (text.charAt(i) == ",") setTimeout(type, 100);
-                        else setTimeout(type, 60);
-                    } else {
-                        setTimeout(callback, 500); // small pause before next paragraph
-                    }
-                }
-
-                type();
-            }
-
-            function typeNext() {
-                if (currentIndex < elements.length) {
-                    typeElement(elements[currentIndex], () => {
-                        currentIndex++;
-                        typeNext();
-                    });
-                }
-            }
-
-            typeNext();
-
-        });
+        // });
     </script>
 
 
