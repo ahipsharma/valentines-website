@@ -81,21 +81,31 @@
     }
 }
         /* Holi Banner */
+/* Holi Banner (Responsive Version) */
 .holi-banner {
     position: fixed;
-    top: 20%;
+    top: 18%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    padding: 18px 35px;
-    font-size: 26px;
-    font-weight: bold;
-    border-radius: 50px;
+    transform: translate(-50%, -50%) scale(0.9);
+    
+    width: min(90%, 420px);
+    padding: 16px 24px;
+
+    font-size: clamp(18px, 4vw, 26px);
+    text-align: center;
+    line-height: 1.3;
+    font-weight: 600;
+
+    border-radius: 30px;
     color: white;
+
     background: linear-gradient(45deg, #ff4d6d, #ffbe0b, #3a86ff, #06d6a0);
     background-size: 300% 300%;
-    animation: bannerPop 0.6s ease forwards, bannerGlow 3s infinite;
+
+    animation: bannerPop 0.5s ease forwards, bannerGlow 3s infinite;
+
     z-index: 10000;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     pointer-events: none;
 }
 
@@ -791,7 +801,7 @@ function showHoliBanner() {
     // Remove after fade completes
     setTimeout(() => {
         banner.remove();
-    }, 3800);
+    }, 5000);
 }
 
     </script>
