@@ -18,7 +18,156 @@
             --pink-deep: #e89bb5;
             --text-dark: #5a2a3c;
         }
+        /* Holi Color Splash */
+.holi-splash {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%) scale(0);
+    animation: splashAnim 0.8s ease-out forwards;
+    filter: blur(1px);
+}
 
+@keyframes splashAnim {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.8);
+        opacity: 0;
+    }
+}
+
+/* Floating Color Dust */
+.color-dust {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: dustFloat 2s ease-out forwards;
+    z-index: 9997;
+}
+
+@keyframes dustFloat {
+    to {
+        transform: translateY(-60px) scale(0.5);
+        opacity: 0;
+    }
+}
+    /* Confetti Rain */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 14px;
+    top: -20px;
+    opacity: 0.9;
+    z-index: 9999;
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 1;
+    }
+}
+        /* Holi Banner */
+.holi-banner {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    padding: 18px 35px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 50px;
+    color: white;
+    background: linear-gradient(45deg, #ff4d6d, #ffbe0b, #3a86ff, #06d6a0);
+    background-size: 300% 300%;
+    animation: bannerPop 0.6s ease forwards, bannerGlow 3s infinite;
+    z-index: 10000;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
+@keyframes bannerPop {
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bannerGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* SHAKE EFFECT */
+@keyframes colorShake {
+    0% { transform: translate(-50%, -50%) translateX(0); }
+    20% { transform: translate(-50%, -50%) translateX(-8px); }
+    40% { transform: translate(-50%, -50%) translateX(8px); }
+    60% { transform: translate(-50%, -50%) translateX(-6px); }
+    80% { transform: translate(-50%, -50%) translateX(6px); }
+    100% { transform: translate(-50%, -50%) translateX(0); }
+}
+    @keyframes bannerFadeOut {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+}
+
+.holi-banner.fade-out {
+    animation: bannerFadeOut 0.8s ease forwards;
+}
+    /* Rang Button */
+.rang-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 22px;
+    background: linear-gradient(45deg, #ff4d6d, #ffbe0b);
+    color: white;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+.rang-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Screen Tint */
+.rang-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    animation: rangFade 2s ease forwards;
+}
+
+@keyframes rangFade {
+    0% { opacity: 0; }
+    30% { opacity: 0.35; }
+    100% { opacity: 0; }
+}
         /* Proposal Overlay */
         #proposalOverlay {
             position: fixed;
@@ -419,7 +568,8 @@
     <div id="proposalOverlay">
         <div class="proposal-card">
             <h1>Hey Manvi 💕</h1>
-            <p>Do you love me?</p>
+            <!-- <p>Do you love me?</p> -->
+            <p>Wanna play holi with me😉?</p>
 
             <div class="buttons">
                 <button id="yesBtn">Yes 💖</button>
@@ -429,12 +579,12 @@
     </div>
 
     <!-- Music Button -->
-    <!-- <div class="music-toggle" id="musicBtn">🎵</div> -->
+    <div class="music-toggle" id="musicBtn">🎵</div>
     <!-- Music Bar -->
-    <!-- <div class="music-bar" id="musicBar">
+    <div class="music-bar" id="musicBar">
         <span id="songTitle">Let's enjoy some music!</span>
         <button id="nextBtn">⏭️</button>
-    </div> -->
+    </div>
 
 
     <!-- Audio (upload your own file here) -->
@@ -468,17 +618,28 @@
                 const x = Math.random() * 200 - 100;
                 const y = Math.random() * 100 - 50;
                 noBtn.style.transform = `translate(${x}px, ${y}px)`;
-                if (counter == 2) noBtn.textContent = "Please 🥺"
+                if (counter == 2) noBtn.textContent = "Maan ja lalaaaa!!!"
                 if (counter == 4) noBtn.textContent = "Are you sure?"
-                else if (counter == 5) noBtn.textContent = "Maan Jaaao Yaar!!!!🥺🥺🥺🥺🥺"
-                else if (counter == 6) noBtn.textContent = "1000% sure you don't want to be?"
-                else if (counter == 8) noBtn.textContent = "I love you Bachhaa ❤️"
+                else if (counter == 5) noBtn.textContent = "Please yaar"
+                else if (counter == 6) noBtn.textContent = "Nahi khelogii kyaaa?🥺"
+                else if (counter == 8) noBtn.textContent = "Akele khud ko rang lagau kyaaa?💔"
                 else if (counter == 10) noBtn.textContent = "Acha ab maan bhiii jaao"
                 else if (counter > 10) {
                     // Increase yes button button size horizontally and vertically on every click after 10 and shrink the no btn
                     yesBtn.style.transform = `scale(${1 + counter * 0.1})`;
                     noBtn.style.transform = `scale(${(1 - counter * 0.05)})`;
                 }
+                // if (counter == 2) noBtn.textContent = "Please 🥺"
+                // if (counter == 4) noBtn.textContent = "Are you sure?"
+                // else if (counter == 5) noBtn.textContent = "Maan Jaaao Yaar!!!!🥺🥺🥺🥺🥺"
+                // else if (counter == 6) noBtn.textContent = "1000% sure you don't want to be?"
+                // else if (counter == 8) noBtn.textContent = "I love you Bachhaa ❤️"
+                // else if (counter == 10) noBtn.textContent = "Acha ab maan bhiii jaao"
+                // else if (counter > 10) {
+                //     // Increase yes button button size horizontally and vertically on every click after 10 and shrink the no btn
+                //     yesBtn.style.transform = `scale(${1 + counter * 0.1})`;
+                //     noBtn.style.transform = `scale(${(1 - counter * 0.05)})`;
+                // }
                 counter++
             });
 
@@ -492,6 +653,9 @@
                     overlay.style.display = 'none';
                     lovePage.classList.remove('hidden');
                     lovePage.scrollIntoView({ behavior: 'smooth' });
+                    launchConfetti();
+                    showHoliBanner();
+                    launchConfetti();
                 }, 800);
             });
 
@@ -523,14 +687,124 @@
                 });
             }
         });
+        /* Holi Tap Splash Effect */
+const holiColors = [
+    "#ff4d6d",  // pink
+    "#ffbe0b",  // yellow
+    "#3a86ff",  // blue
+    "#8338ec",  // purple
+    "#06d6a0",  // green
+    "#fb5607"   // orange
+];
+
+document.addEventListener("click", function (e) {
+
+    // Create main splash
+    const splash = document.createElement("div");
+    splash.className = "holi-splash";
+
+    const color = holiColors[Math.floor(Math.random() * holiColors.length)];
+
+    splash.style.background = `radial-gradient(circle, ${color} 40%, transparent 70%)`;
+    splash.style.left = e.clientX + "px";
+    splash.style.top = e.clientY + "px";
+
+    document.body.appendChild(splash);
+
+    setTimeout(() => splash.remove(), 800);
+
+    // Create floating dust particles
+    for (let i = 0; i < 8; i++) {
+        const dust = document.createElement("div");
+        dust.className = "color-dust";
+        dust.style.background = holiColors[Math.floor(Math.random() * holiColors.length)];
+        dust.style.left = (e.clientX + Math.random() * 40 - 20) + "px";
+        dust.style.top = (e.clientY + Math.random() * 40 - 20) + "px";
+        document.body.appendChild(dust);
+        setTimeout(() => dust.remove(), 2000);
+    }
+
+    // Rare cute message burst
+    if (Math.random() < 0.08) {
+        const msg = document.createElement("div");
+        msg.textContent = "Happy Holi Manvi ❤️";
+        msg.style.position = "fixed";
+        msg.style.left = e.clientX + "px";
+        msg.style.top = e.clientY + "px";
+        msg.style.transform = "translate(-50%, -50%)";
+        msg.style.fontSize = "18px";
+        msg.style.fontWeight = "bold";
+        msg.style.color = color;
+        msg.style.pointerEvents = "none";
+        msg.style.animation = "dustFloat 2s ease-out forwards";
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 2000);
+    }
+
+});
+    function launchConfetti() {
+
+    const colors = [
+        "#ff4d6d",
+        "#ffbe0b",
+        "#3a86ff",
+        "#8338ec",
+        "#06d6a0",
+        "#fb5607"
+    ];
+
+    for (let i = 0; i < 120; i++) {
+
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+}
+function showHoliBanner() {
+
+    const banner = document.createElement("div");
+    banner.className = "holi-banner";
+    banner.textContent = "Bura Na Maano Holi Hai ❤️";
+
+    document.body.appendChild(banner);
+
+    // Shake after pop
+    setTimeout(() => {
+        banner.style.animation += ", colorShake 0.5s ease";
+    }, 600);
+
+    // Trigger fade out
+    setTimeout(() => {
+        banner.classList.add("fade-out");
+    }, 3000);
+
+    // Remove after fade completes
+    setTimeout(() => {
+        banner.remove();
+    }, 3800);
+}
+
     </script>
 
     <div id="lovePage" class="hidden">
         <div class="container">
             <section class="hero">
-                <h1>I love You so much my Blueberry Pie 💖</h1>
+                <h1>Happy Holi Manvii 💖🎊</h1>
+                <h2>May this holi brings lots of colours in yours as well your family's life</h2>
+                <p>You're my color Babyyy!!!!</p>
+                <!-- <h1>I love You so much my Blueberry Pie 💖</h1>
                 <h2>Made with love, just for you Manvi.❤️</h2>
-                <p>A little piece of my heart, written just for you</p>
+                <p>A little piece of my heart, written just for you</p> -->
             </section>
             <!-- Photo Section -->
             <div class="photo-section">
@@ -539,6 +813,7 @@
                 </div>
                 <p class="photo-caption">You, as the world sees poetry.</p>
             </div>
+            <div class="rang-btn" id="rangBtn">🎨 Rang Laga Du?</div>
 
 
             
@@ -562,10 +837,11 @@
 }
 </style>
 
+<!-- src="https://open.spotify.com/embed/playlist/1KScs09LQnlYWU4XEbZ6Ko" -->
 <div class="spotify-wrapper">
     <iframe 
         style="border-radius:20px" 
-        src="https://open.spotify.com/embed/playlist/1KScs09LQnlYWU4XEbZ6Ko"
+        src="https://open.spotify.com/embed/playlist/6BBr9Ysz5LMggVlZYMrbKP"
         width="100%" 
         height="380" 
         frameBorder="0" 
@@ -604,11 +880,19 @@
 
                     Happy Valentine's Day Manvi!
                 </p> -->
-                <p id="actualletter">
+                <!-- <p id="actualletter">
                     Hi Manvi!!<br />
                     I love you so much my love! You are the most precious person in my life and I am so grateful to have you by my side. You bring so much joy and happiness into my life and I can't imagine a day without you. I promise to always love and cherish you, to support you through thick and thin, and to be there for you no matter what. You are my everything and I will always be here for you.<br />
                     I spend countless hours trying to put into words how much you mean to me, but I always come back to the same truth: I love you more than words can express. You are my heart, my soul, and my everything! You are the most beautiful, kind, and amazing person I have ever met, and I am so lucky to call you mine. I promise to always be there for you, to support you, and to love you with all of my heart. Loving you is the easiest thing I have ever done, and I will continue to love you more and more each day.
                     Babe I just need you with me and nothing else in this world matters. I love you so much, Manvi!
+                </p> -->
+                <p id="actualletter">
+                    Hi Manvi!!<br />
+                    I love you so much my love!
+                    This festival of colors, I just want to drench you in all the love and happiness that you deserve. You are the most precious person in my life and I am so grateful to have you by my side. You bring so much joy and happiness into my life and I can't imagine a day without youuuu. I promise to always love and cherish you, to support you through thick and thin, and to be there for you no matter what. You are my everything and I will always be here for you.<br />
+                    I spend countless hours trying to put into words how much you mean to me, but I always come back to the same truth: I love you more than words can express. You are my heart, my soul, and my everything! You are the most beautiful, kind, and amazing person I have ever met, and I am so lucky to call you mine. I promise to always be there for you, to support you, and to love you with all of my heart. Loving you is the easiest thing I have ever done, and I will continue to love you more and more each day.<br />
+                    Babe I just need you with me and nothing else in this world matters.<br />
+                    I love you so much, Manvi!
                 </p>
                 <p id="idleMessage" class="idle-message">I like when you stay 🤍</p>
             </section>
@@ -705,6 +989,43 @@
             document.getElementById('idleMessage').textContent =
                 "It’s late. I hope you’re okay 🌙";
         }
+        const rangBtn = document.getElementById("rangBtn");
+
+if (rangBtn) {
+    rangBtn.addEventListener("click", function () {
+
+        const colors = [
+            "rgba(255, 77, 109, 0.6)",
+            "rgba(255, 190, 11, 0.6)",
+            "rgba(58, 134, 255, 0.6)",
+            "rgba(6, 214, 160, 0.6)",
+            "rgba(131, 56, 236, 0.6)"
+        ];
+        rangBtn.textContent = "Ab tum meri ho officially 😌"
+
+        const overlay = document.createElement("div");
+        overlay.className = "rang-overlay";
+        overlay.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        document.body.appendChild(overlay);
+
+        setTimeout(() => {
+            overlay.remove();
+        }, 2000);
+
+        // Small burst effect
+        for (let i = 0; i < 12; i++) {
+            const burst = document.createElement("div");
+            burst.className = "color-dust";
+            burst.style.background = colors[Math.floor(Math.random() * colors.length)];
+            burst.style.left = "50%";
+            burst.style.top = "50%";
+            document.body.appendChild(burst);
+            setTimeout(() => burst.remove(), 2000);
+        }
+
+    });
+}
 
         // document.addEventListener('DOMContentLoaded', () => {
 
